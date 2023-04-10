@@ -3,33 +3,41 @@ export default class Charac {
     this.name = name;
     this.health = 100;
     this.level = 1;
-    this.attack1 = 100;
-    this.stoned1 = false;
     this.distanse = distanse;
+    this.attack = 100;
+    this.stoned = false;
   }
 
-  set attack(distanse) {
-    if (distanse < 10) {
-      this.attack1 -= ((this.attack1 * (distanse - 1)) / 10);
-
-      if (this.stoned1) {
-        this.attack1 -= (Math.log2(distanse) * 5);
-      }
+  set distanse(dist) {
+    if (dist < 10) {
+      this._distanse = dist;
     }
-    if ((distanse <= 0) || (distanse >= 10)) {
+    if ((dist <= 0) || (dist >= 10)) {
       throw new Error('Wrong distance!');
     }
   }
 
+  get distanse() {
+    return this._distanse;
+  }
+
+  set attack(attack) {
+    this._attack = attack - ((attack * (this._distanse - 1)) / 10);
+
+    if (this._stoned) {
+      this._attack -= (Math.log2(this._distanse) * 5);
+    }
+  }
+
   get attack() {
-    return this.attack1;
+    return this._attack;
   }
 
   set stoned(stoned) {
-    this.stoned1 = true;
+    this._stoned = stoned;
   }
 
   get stoned() {
-    return this.stoned1;
+    return this._stoned;
   }
 }
