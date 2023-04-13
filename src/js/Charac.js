@@ -22,14 +22,15 @@ export default class Charac {
   }
 
   set attack(attack) {
-    this._attack = attack - ((attack * (this._distanse - 1)) / 10);
+    this._attack = attack;
+  }
+
+  get attack() {
+    this._attack -= ((this._attack * (this._distanse - 1)) / 10);
 
     if (this._stoned) {
       this._attack -= (Math.log2(this._distanse) * 5);
     }
-  }
-
-  get attack() {
     return this._attack;
   }
 
